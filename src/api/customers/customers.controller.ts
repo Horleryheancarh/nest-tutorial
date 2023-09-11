@@ -1,15 +1,18 @@
 import {
+  Body,
   Controller,
   Get,
   HttpException,
   HttpStatus,
   Param,
   ParseIntPipe,
+  Post,
   Req,
   Res,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { Request, Response } from 'express';
+import { CreateCustomerDto } from './dtos/CreateCustomer.dto';
 
 @Controller('customers')
 export class CustomersController {
@@ -34,6 +37,11 @@ export class CustomersController {
     } else {
       res.status(404).send({ message: 'Customer Not Found' });
     }
+  }
+
+  @Post('create')
+  createCustomers(@Body() data: CreateCustomerDto) {
+    this.customerService.createCustomer(data);
   }
 
   // Nest way
