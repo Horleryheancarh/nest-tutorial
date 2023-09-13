@@ -6,14 +6,14 @@ import entities from './database';
 
 @Module({
   imports: [
-    CustomersModule,
-    UsersModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: ':memory:',
       entities,
       synchronize: true,
     }),
+    CustomersModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],
