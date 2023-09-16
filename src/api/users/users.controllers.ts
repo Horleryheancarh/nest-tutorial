@@ -33,8 +33,8 @@ export class UsersController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('username/:username')
-  getByUsername(@Param('username') username: string) {
-    const user = this.userService.getUserByUsername(username);
+  async getByUsername(@Param('username') username: string) {
+    const user = await this.userService.getUserByUsername(username);
 
     if (!user) throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
 
@@ -44,8 +44,8 @@ export class UsersController {
   @UseInterceptors(ClassSerializerInterceptor)
   @UseFilters(HttpExceptionFilter)
   @Get('id/:id')
-  getById(@Param('id', ParseIntPipe) id: number) {
-    const user = this.userService.getUserById(id);
+  async getById(@Param('id', ParseIntPipe) id: number) {
+    const user = await this.userService.getUserById(id);
 
     if (!user) throw new UserNotFoundException();
 

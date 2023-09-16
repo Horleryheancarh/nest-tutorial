@@ -13,22 +13,25 @@ export class UsersService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  private users: User[] = [];
-
   createUser(createUserDto: CreateUserDto) {
     const user = this.userRepository.create(createUserDto);
     return this.userRepository.save(user);
   }
 
-  getUsers() {
-    return this.users.map((user) => plainToClass(SerializedUser, user));
+  async getUsers() {
+    const users = await this.userRepository.find();
+    return users.map((user) => plainToClass(SerializedUser, user));
   }
 
-  getUserByUsername(username: string) {
-    return this.users.find((user) => user.username === username);
+  async getUserByUsername(username: string) {
+    return await this.userRepository.findOneBy({ username });
   }
 
-  getUserById(id: number) {
-    return this.users.find((user) => user.id === id);
+  async getUserById(id: number) {
+    return await this.userRepository.findOneBy({ id });
+  }
+
+  async findUserByUsername(username: string) {
+    return await this.userRepository.findOne({ where: { username } });
   }
 }
