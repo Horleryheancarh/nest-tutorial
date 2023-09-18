@@ -13,6 +13,7 @@ export class LocalAuthGuard extends AuthGuard('local') {
     return result;
   }
 }
+
 @Injectable()
 export class AuthenticatedGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {

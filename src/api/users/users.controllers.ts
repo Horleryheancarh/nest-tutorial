@@ -10,6 +10,7 @@ import {
   ParseIntPipe,
   Post,
   UseFilters,
+  UseGuards,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
@@ -19,6 +20,7 @@ import { SerializedUser } from './types/User';
 import { UserNotFoundException } from './exceptions/UserNotFound.exception';
 import { HttpExceptionFilter } from './filters/HttpException.filter';
 import { CreateUserDto } from './dtos/CreateUser.dto';
+import { AuthenticatedGuard } from '../auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -27,6 +29,7 @@ export class UsersController {
   ) {}
 
   @Get('')
+  @UseGuards(AuthenticatedGuard)
   getUsers() {
     return this.userService.getUsers();
   }
