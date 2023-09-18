@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { PassportModule } from '@nestjs/passport';
 import { CustomersModule } from './api/customers/customers.module';
 import { UsersModule } from './api/users/users.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import entities from './database';
 import { AuthModule } from './api/auth/auth.module';
 
@@ -12,6 +13,9 @@ import { AuthModule } from './api/auth/auth.module';
       database: ':memory:',
       entities,
       synchronize: true,
+    }),
+    PassportModule.register({
+      session: true,
     }),
     CustomersModule,
     AuthModule,
